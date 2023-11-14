@@ -9,13 +9,13 @@ export default class App extends Component {
 
 // Функция для проверки окончания на оператор
 endsWithOperator = (str) => {
-  const operators = ['*', '/', '+', '-'];
+  const operators = ['*', '/', '+', '-', '.'];
   return operators.some((operator) => str.endsWith(operator));
 };
 
 update = (state) => {
   let word = state.currentValue;
-  console.log(this.state.currentValue)
+  // console.log(this.state.currentValue)
   let lengthNum = word.match(/\d+/g);
 
   if (Object.keys(lengthNum).length > 1 && !this.endsWithOperator(state.currentValue)) {
@@ -31,12 +31,6 @@ HandleTap = (type, value) => {
     return { ...newState, ...this.update(newState) };
   });
 };
-
-  
-
-  
-
-  
 
   render() {
     return (
@@ -55,13 +49,14 @@ HandleTap = (type, value) => {
             <Button
               text="C"
               theme="secondary"
+
               onPress={() => this.HandleTap("clear")}
             />
 
             <Button
-              // text="%"
-              theme="nocolor"
-              // onPress={() => this.HandleTap("percentage")}
+              text="√"
+              theme="secondary"
+              onPress={() => this.HandleTap("sqrt")}
             />
 
             <Button
@@ -113,7 +108,7 @@ HandleTap = (type, value) => {
 
           <Row>
             <Button text="0" onPress={() => this.HandleTap("number", 0)} />
-            <Button text="." onPress={() => this.HandleTap("number", ".")} />
+            <Button text="." onPress={() => this.HandleTap("operator", ".")} />
             <Button
               text="="
               theme="primary"
@@ -125,7 +120,6 @@ HandleTap = (type, value) => {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -145,7 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     textAlign: "right",
     marginRight: 20,
-    color: "#bcc4c4",
     marginBottom: 10,
   },
 });

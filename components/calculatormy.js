@@ -2,7 +2,6 @@ export const initialState = {
     currentValue: "0",
     operator: null,
     previousValue: null,
-    eq: " ",
   };
   
   export const handleNumber = (value, state) => {
@@ -14,33 +13,6 @@ export const initialState = {
       currentValue: `${state.currentValue}${value}`,
     };
   };
-// export const handleNumber = (value, state, callback) => {
-//   if (state.currentValue === "0") {
-//     return { currentValue: `${value}` };
-//   }
-
-//   const updatedState = {
-//     currentValue: `${state.currentValue}${value}`,
-//   };
-
-//   // Выполнение колбэк-функции после завершения handleNumber
-//   callback(updatedState);
-//   return updatedState;
-// };
-
-// const update = (state) => {
-//   let i = 2
-//   let word = state.currentValue;
-//   let lengthNum = word.match(/\d+/g);
-//   console.log(state.currentValue);
-//   console.log(Object.keys(lengthNum).length)
-//   console.log(state.eq)
-//   if (Object.keys(lengthNum).length > 1 ) {
-//     console.log(true);
-//     return { eq: state.currentValue };
-//   }
-  
-// };
 
 
    
@@ -50,14 +22,14 @@ const handleEqual = (state, value) => {
     return state;
   }
 
-  let newState = state; // сохраняем текущее состояние
+  let newState = state;
 
   switch (value) {
     case "-":
       if (['-'].includes(state.currentValue.slice(-1))) {
         return state;
       }
-      newState = handleNumber(value, state);//, update
+      newState = handleNumber(value, state);
       break;
       case "del":
         if (state.currentValue.length > 1) {
@@ -66,10 +38,11 @@ const handleEqual = (state, value) => {
           newState = initialState;
         }
         break;
+    case ".":
     case "*":
     case "+":
     case "/":
-      if (['*', '/', '+', '-'].includes(state.currentValue.slice(-1))) {
+      if (['*', '/', '+', '-', '.'].includes(state.currentValue.slice(-1))) {
         return state;
       }
       newState = handleNumber(value, state);//, update
@@ -83,19 +56,15 @@ const handleEqual = (state, value) => {
 };
 
   
-  // calculator function
+
   const calculator = (type, value, state) => {
     switch (type) {
       case "number":
-        // return update(value, state);
-        return handleNumber(value, state);//, update
+        return handleNumber(value, state);
+      case "sqrt":
+        return {currentValue: `${Math.sqrt(parseFloat(state.currentValue))}`}
       case "clear":
         return initialState;
-      
-      case "percentage":
-        return {
-          eq: `${parseFloat(state.currentValue) * 0.01}`,
-        };
       case "operator":
         return handleEqual(state, value)
         ;

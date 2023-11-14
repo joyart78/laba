@@ -23,7 +23,7 @@ export default ({ onPress, text, size, theme }) => {
   );
 };
 
-// set dimmenstion
+
 const screen = Dimensions.get("window");
 const buttonWidth = screen.width / 4;
 
@@ -45,10 +45,7 @@ const styles = StyleSheet.create({
     color: "#060606",
   },
   buttonDouble: {
-    width: screen.width / 2,
-    flex: 0,
-    alignItems: "flex-start",
-    paddingLeft: 40,
+    width: 100,
   },
   buttonSecondary: {
     backgroundColor: "#a6a6a6",
