@@ -9,16 +9,16 @@ export default class App extends Component {
 
 // Функция для проверки окончания на оператор
 endsWithOperator = (str) => {
-  const operators = ['*', '/', '+', '-', '.'];
+  const operators = ['*', '/', '+', '-'];
   return operators.some((operator) => str.endsWith(operator));
 };
 
 update = (state) => {
   let word = state.currentValue;
   // console.log(this.state.currentValue)
-  let lengthNum = word.match(/\d+/g);
+  let lengthNum = word.match(/[.\d]+/g);
 
-  if (Object.keys(lengthNum).length > 1 && !this.endsWithOperator(state.currentValue)) {
+  if (lengthNum.length > 1 && !this.endsWithOperator(state.currentValue)) {
     return { eq: state.currentValue };
   }
   else return { eq: ""}
